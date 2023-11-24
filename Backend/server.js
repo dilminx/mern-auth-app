@@ -4,20 +4,22 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const dotenv = require('dotenv').config();
+
 
 
 const User = require('./Model/model');
 const app = express();
 const SECRRET_KEY = 'secrretkey';
 
-//Data Base Connections
-const url = 'mongodb+srv://auth:mongodb123@cluster0.xpmxyew.mongodb.net/UserDB?retryWrites=true&w=majority'
-mongoose.connect(url)
-.then(()=>{
+//Data Base Connection
+
+mongoose.connect(process.env.URL)
+   .then(()=>{
     console.log('db conected'),
     app.listen(8000,()=>{console.log(`app listning  port 8000`)});
 })
-.catch(()=>{
+.catch((e)=>{
     console.log('db not conected');
 
 })
